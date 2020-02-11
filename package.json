@@ -5,7 +5,7 @@
   "repository": "https://github.com/deviator206/spa-configurator.git",
   "license": "MIT",
   "private": true,
-  "workspaces": [ "configurator-server/*"],
+  "workspaces": [ "configurator-server"],
   "scripts": {
     "build": "echo here",
     "travis": "yarn workspace configurator-server test"
