@@ -1,0 +1,11 @@
+{
+  "name": "spa-configurator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/deviator206/spa-configurator.git",
+  "license": "MIT",
+  "scripts": {
+    "build":"echo here",
+    "travis":"echo test here some thing"
+  }
+}
