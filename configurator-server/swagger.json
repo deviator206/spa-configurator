@@ -1,0 +1,68 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Configurator Server Interface",
+        "description": "A basic contract for all the endpoints defined for server.",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "definitions": {
+        "SinglePage":{
+            "type":"object",
+            "properties":{
+                "unique-route":{
+                    "type":"string"
+                },
+                "name":{
+                    "type":"string"
+                }
+            }
+        },
+        "SpaApp":{
+            "type":"object",
+            "properties":{
+                "name":{
+                    "type":"string"
+                },
+                "routes":{
+                    "type":"array",
+                    "items":{
+                        "$ref": "#/definitions/SinglePage"
+                    }
+                }
+            }
+        }
+     
+    },
+    "tags": [
+        {
+            "name": "Configurator",
+            "description": "API for configuration of SPA"
+        }
+    ],
+    "paths": {
+        "/spa-app":{
+            "post":{
+                "summary": "Create a new SPA App in system", 
+                "requestBody": {
+                    "description": "SPA App Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/SpaApp"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        }
+       
+    }
+}
