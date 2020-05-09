@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-const element = <h1>asdasds asd React! New Wonasdasdsader ahhha!!</h1>;
-
+import App from './application/App';
 ReactDOM.render(
-    element,  
+    <App />,  
     document.getElementById('root')
   );
