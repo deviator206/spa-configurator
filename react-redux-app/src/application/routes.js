@@ -5,8 +5,8 @@ import NoMatch from '../component/NoMatch'
 
 const getRoutes =  () =>{
   // load pages & initialize the navigations
-  let pgImp = new PageImports()
-  const routeList = pgImp.loadAllPagesAndGetRoutes();
+  let pageImportInstance = new PageImports()
+  const routeList = pageImportInstance.loadAllPagesAndGetRoutes();
   return routeList;
 }
 
