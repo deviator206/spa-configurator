@@ -1,29 +1,31 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { NavigatorHelper } from '../store/navigationMiddleware';
 
 
-const Home = (props) => {
- useEffect(()=>{
+const P4 = (props) => {
+  useEffect(() => {
     NavigatorHelper.addOutcomes(outcomes)
-  },[]);
+  }, []);
   return (
     <div>
-      <h1>Home</h1>
+      <h1>P4</h1>
+      <hr />
       <div onClick={() => {
+
         /** do something before redirection */
         props.dispatchOutcome({
-          type:outcomes[0].action,
-          payload:outcomes[0]
+          type: outcomes[0].action,
+          payload: outcomes[0]
         })
-      }}>dispatch</div>
+      }}>navigate to Home</div>
     </div>)
 }
 const outcomes = [
- {
-   action:'HOME_NEXT_CLICKED',
-   routeTo:'/p2'
- } 
+  {
+    action: 'P4_ALSO_NEXT_CLICKED',
+    routeTo: '/'
+  }
 ]
 
 
@@ -38,4 +40,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(P4);

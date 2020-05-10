@@ -1,6 +1,7 @@
 import { createStore, combineReducers,applyMiddleware, compose } from 'redux';
 import { connectRouter , routerMiddleware} from 'connected-react-router'
 import {createHashHistory} from 'history';
+import navigationMiddleware from './navigationMiddleware';
 const appHistory = createHashHistory();
 
 const sampleReducer = (state = [], action) => {
@@ -17,6 +18,13 @@ const sampleReducer = (state = [], action) => {
             return state
     }
 }
+const logger = store => next => action => {
+    console.log('logger: dispatching', action)
+    let result = next(action)
+    console.log('logger: next state', store.getState())
+    return result
+  }
+
 
 const createRootReducer = (history) => combineReducers({
     router: connectRouter(history),
@@ -28,7 +36,9 @@ const store = createStore(
     {},
     compose(
         applyMiddleware(
-          routerMiddleware(history) // for dispatching history actions
+            routerMiddleware(appHistory),
+            navigationMiddleware,
+            logger 
         )
       )
 )
