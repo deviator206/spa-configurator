@@ -19,6 +19,8 @@ class NavigatorHelper {
             }
             NavigatorHelper.outcomeInfo[element.action] = element;
         });
+
+        console.log(outcomesList);
     }
 
     static navigateTo = (inputOutcomeInfo, store) => {
@@ -26,7 +28,6 @@ class NavigatorHelper {
         store.dispatch(push(inputOutcomeInfo.routeTo))
     }
 }
-
 
 const navigationMiddleware = store => next => action => {
     console.log('navigationMiddleware:: dispatching', action)

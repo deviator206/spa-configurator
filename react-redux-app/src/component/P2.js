@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux';
-import { NavigatorHelper } from '../store/navigationMiddleware';
+import utilsInstance from '../misc/Utility';
 
 
 const P2 = (props) => {
-  useEffect(() => {
-    NavigatorHelper.addOutcomes(outcomes)
-  }, []);
   return (
     <div>
       <h1>P2</h1>
@@ -52,4 +49,11 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect(null, mapDispatchToProps)(P2);
+const pageConfig = {
+  name:'p2',
+  outcomes
+}
+
+const connectedComponent =  connect(null, mapDispatchToProps)(P2);
+utilsInstance.pushToGlobal(connectedComponent,pageConfig);
+export default connectedComponent;
