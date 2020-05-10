@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router'
-import PageImports from './pageImports';
+import PageImports from './PageImports';
 import NoMatch from '../component/NoMatch'
 
 const getRoutes =  () =>{
