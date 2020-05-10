@@ -1,0 +1,9 @@
+{
+    "name": "p3",
+    "navigation": [
+        {
+        "action":"P3_ALSO_NEXT_CLICKED",
+        "routeTo":"/p4"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import utilsInstance from '../misc/Utility';
+import P2Meta from './P2.meta.json';
 
 
 const P2 = (props) => {
@@ -11,8 +11,8 @@ const P2 = (props) => {
 
         /** do something before redirection */
         props.dispatchOutcome({
-          type: outcomes[0].action,
-          payload: outcomes[0]
+          type: P2Meta.navigation[0].action,
+          payload: P2Meta.navigation[0]
         })
       }}>navigate to p3</div>
       <hr />
@@ -20,27 +20,14 @@ const P2 = (props) => {
 
         /** do something before redirection */
         props.dispatchOutcome({
-          type: outcomes[1].action,
-          payload: outcomes[1]
+          type: P2Meta.navigation[1].action,
+          payload: P2Meta.navigation[1]
         })
       }}>navigate to p4</div>
     </div>)
 }
-const outcomes = [
-  {
-    action: 'P2_NEXT_CLICKED',
-    routeTo: '/p3'
-  },
-  {
-    action: 'P2_ALSO_NEXT_CLICKED',
-    routeTo: '/p4'
-  }
-]
 
 
-export {
-  outcomes
-}
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
@@ -48,12 +35,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-
-const pageConfig = {
-  name:'p2',
-  outcomes
-}
-
 const connectedComponent =  connect(null, mapDispatchToProps)(P2);
-utilsInstance.pushToGlobal(connectedComponent,pageConfig);
 export default connectedComponent;

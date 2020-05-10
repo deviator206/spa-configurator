@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import utilsInstance from '../misc/Utility';
+import P4Meta from './P4.meta.json';
 
 const P4 = (props) => {
   return (
@@ -11,22 +11,11 @@ const P4 = (props) => {
 
         /** do something before redirection */
         props.dispatchOutcome({
-          type: outcomes[0].action,
-          payload: outcomes[0]
+          type: P4Meta.navigation[0].action,
+          payload: P4Meta.navigation[0]
         })
       }}>navigate to Home</div>
     </div>)
-}
-const outcomes = [
-  {
-    action: 'P4_ALSO_NEXT_CLICKED',
-    routeTo: '/'
-  }
-]
-
-
-export {
-  outcomes
 }
 const mapDispatchToProps = dispatch => {
   return {
@@ -34,11 +23,7 @@ const mapDispatchToProps = dispatch => {
     dispatchOutcome: (payload) => dispatch(payload)
   }
 }
-const pageConfig = {
-  name:'p4',
-  outcomes
-}
+
 
 const connectedComponent =  connect(null, mapDispatchToProps)(P4);
-utilsInstance.pushToGlobal(connectedComponent,pageConfig);
 export default connectedComponent;

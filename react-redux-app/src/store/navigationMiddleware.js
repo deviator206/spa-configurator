@@ -19,8 +19,6 @@ class NavigatorHelper {
             }
             NavigatorHelper.outcomeInfo[element.action] = element;
         });
-
-        console.log(outcomesList);
     }
 
     static navigateTo = (inputOutcomeInfo, store) => {

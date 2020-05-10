@@ -1,0 +1,9 @@
+{
+    "name": "home",
+    "navigation": [
+        {
+        "action":"HOME_NEXT_CLICKED",
+        "routeTo":"/p2"
+        }
+    ]
+}
