@@ -11,8 +11,8 @@ const P2 = (props) => {
 
         /** do something before redirection */
         props.dispatchOutcome({
-          type: P2Meta.navigation[0].action,
-          payload: P2Meta.navigation[0]
+          type: P2Meta.navigation["P2_NEXT_CLICKED"].action,
+          payload: P2Meta.navigation["P2_NEXT_CLICKED"]
         })
       }}>navigate to p3</div>
       <hr />
@@ -20,8 +20,8 @@ const P2 = (props) => {
 
         /** do something before redirection */
         props.dispatchOutcome({
-          type: P2Meta.navigation[1].action,
-          payload: P2Meta.navigation[1]
+          type: P2Meta.navigation["P2_ALSO_NEXT_CLICKED"].action,
+          payload: P2Meta.navigation["P2_ALSO_NEXT_CLICKED"]
         })
       }}>navigate to p4</div>
     </div>)

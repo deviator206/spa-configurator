@@ -11,8 +11,8 @@ const P4 = (props) => {
 
         /** do something before redirection */
         props.dispatchOutcome({
-          type: P4Meta.navigation[0].action,
-          payload: P4Meta.navigation[0]
+          type: P4Meta.navigation["P4_ALSO_NEXT_CLICKED"].action,
+          payload: P4Meta.navigation["P4_ALSO_NEXT_CLICKED"]
         })
       }}>navigate to Home</div>
     </div>)

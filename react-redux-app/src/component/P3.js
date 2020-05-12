@@ -13,8 +13,8 @@ const P3 = (props) => {
 
         /** do something before redirection */
         props.dispatchOutcome({
-          type: P3Meta.navigation[0].action,
-          payload: P3Meta.navigation[0]
+          type: P3Meta.navigation["P3_ALSO_NEXT_CLICKED"].action,
+          payload: P3Meta.navigation["P3_ALSO_NEXT_CLICKED"]
         })
       }}>navigate to p4</div>
     </div>)

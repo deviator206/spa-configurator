@@ -3,12 +3,11 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import axios from 'axios';
 import store, { appHistory } from '../store/store';
-import routes from './routes'
-
+import Routes from './Routes'
 
 // this server is configurator-server http-server . --cors=Authorization
 const configuration = {
-    serverURL : "http://192.168.1.100:8080/app.json"
+    serverURL: "http://192.168.1.100:8080/app.json"
 }
 const App = () => {
     const [appConfiguration, setAppConfiguration] = useState({});
@@ -16,8 +15,31 @@ const App = () => {
         axios.get(configuration.serverURL)
             .then(function (response) {
                 // handle success
-                console.log(response);
-                setAppConfiguration(response.data)
+                let manipulatedResponse = {};
+                if (response.data && response.data.uiFragments && response.data.uiFragments.length > 0) {
+                    let uiFragments = {}
+                    response.data.uiFragments.forEach(singlePage => {
+                        uiFragments[singlePage.name] = singlePage;
+                    })
+
+                    manipulatedResponse = {
+                        ...manipulatedResponse,
+                        uiFragments
+                    }
+                }
+
+                if (response.data && response.data.uiPages && response.data.uiPages.length > 0) {
+                    let uiPages = {}
+                    response.data.uiPages.forEach(singlePage => {
+                        uiPages[singlePage.name] = singlePage;
+                    })
+
+                    manipulatedResponse = {
+                        ...manipulatedResponse,
+                        uiPages
+                    }
+                }
+                setAppConfiguration(manipulatedResponse)
             })
             .catch(function (error) {
                 // handle error
@@ -34,11 +56,11 @@ const App = () => {
             return (
                 <Provider store={store}>
                     <ConnectedRouter history={appHistory}>
-                        {routes}
+                        <Routes appConfig={appConfiguration} />
                     </ConnectedRouter>
                 </Provider>
             )
-        } 
+        }
 
         return (
             <h1> Loading ....</h1>
@@ -48,7 +70,7 @@ const App = () => {
     return (
         <>
             {
-              getView()
+                getView()
             }
         </>
 

@@ -1,9 +1,11 @@
 {
     "name": "home",
-    "navigation": [
-        {
-        "action":"HOME_NEXT_CLICKED",
-        "routeTo":"/p2"
-        }
-    ]
+    "navigation": {
+        "HOME_NEXT_CLICKED":{
+                "action":"HOME_NEXT_CLICKED",
+                "routeTo":"/p2",
+                "ruleId":"some_random_rule2"
+         }
+    }
+        
 }

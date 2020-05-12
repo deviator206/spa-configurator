@@ -1,0 +1,40 @@
+{
+  "ruleDefinition": {
+      "some_random_rule1": {
+        "conditions": {
+          "all": [
+            {
+              "fact": "dissadasdasdplayMessage",
+              "operator": "equal",
+              "value": "true"
+            }
+          ]
+        },
+        "event": {
+          "type": "message",
+          "params": {
+            "message": "hello-world!"
+          }
+        }
+      },
+      "some_random_rule2": {
+        "conditions": {
+          "all": [
+            {
+              "fact": "homeValue",
+              "operator": "lessThanInclusive",
+              "value": "20"
+            }
+          ]
+        },
+        "event": {
+          "type": "message_2",
+          "params": {
+            "failure": "navigate_2",
+            "success": "navigate_1"
+          }
+        }
+      }
+    }
+  
+}

@@ -1,48 +1,38 @@
-import { push } from 'connected-react-router'
+import { navigatorHelperInstance } from './NavigatorHelper';
+import { RuleExecutorInstance } from '../rule-executor/RuleExecutor';
 
-
-class NavigatorHelper {
-    static outcomeInfo = {};
-
-    static checkOutcomeValidity = (outcome) => {
-        let isValid = false;
-        if (NavigatorHelper.outcomeInfo[outcome]) {
-            isValid = true
-        }
-        return isValid;
-    }
-
-    static addOutcomes = (outcomesList) => {
-        outcomesList.forEach(element => {
-            if (NavigatorHelper.outcomeInfo[element.action]) {
-                console.error('DUPLICATE ACTION:: ', element.action)
-            }
-            NavigatorHelper.outcomeInfo[element.action] = element;
-        });
-    }
-
-    static navigateTo = (inputOutcomeInfo, store) => {
-        console.log("navigating to ..")
-        store.dispatch(push(inputOutcomeInfo.routeTo))
-    }
-}
 
 const navigationMiddleware = store => next => action => {
-    console.log('navigationMiddleware:: dispatching', action)
-    if (NavigatorHelper.checkOutcomeValidity(action.type)) {
+    if (navigatorHelperInstance.checkOutcomeValidity(action.type, (action.pageIdentifier) ? action.pageIdentifier : "")) {
         console.log('navigationMiddleware:: THIS IS FOR NAVIGATION', action)
-        NavigatorHelper.navigateTo(action.payload, store)
+        // override the navigation logic from data that is stored at beginning 
+        const navigationDetails = navigatorHelperInstance.getNavigationDetails(action.type, (action.pageIdentifier) ? action.pageIdentifier : "");
+        if (navigationDetails.ruleId) {
+            const inputRuleDefintion = navigatorHelperInstance.getRuleDefinitionById(navigationDetails.ruleId);
+            console.log("### DEF ### ", inputRuleDefintion);
+            RuleExecutorInstance.excuteRule(inputRuleDefintion, action.payload).then(resp => {
+                if (resp && resp.events && resp.events.length > 0) {
+                    store.dispatch(
+                        {
+                            type: 'RULE_EXECUTOR_SUCESS',
+                            payload: { ruleExecutionResult: resp.events[resp.events.length-1].params.success, ...action.payload }
+                        });
+                } else {
+                    store.dispatch(
+                        {
+                            type: 'RULE_EXECUTOR_FAILURE',
+                            payload: { ruleExecutionResult: inputRuleDefintion.event.params.failure, ...action.payload }
+                        });
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        } else {
+            navigatorHelperInstance.navigateTo(navigationDetails, store)
+        }
     } else {
         let result = next(action)
-        console.log('next state', store.getState())
         return result;
     }
-
 }
-
-
-export {
-    NavigatorHelper
-}
-
 export default navigationMiddleware;

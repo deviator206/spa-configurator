@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router'
-import utilsInstance from "../misc/Utility";
-import {NavigatorHelper} from '../store/navigationMiddleware';
+import { navigatorHelperInstance } from '../store/NavigatorHelper';
+import RuleMetaJSON from '../component/rules-meta.json';
 import Home from "../component/Home";
 import HomeMeta from "../component/Home.meta.json"
 import P2 from "../component/P2";
@@ -14,56 +14,67 @@ import P4Meta from "../component/P4.meta.json";
 const appPageConfiguration = [
     {
         pageUrl: "/p2",
-        componentName: "P2",
-        componentLocation:"../component/P2",
+        name: "p2",
+        componentLocation: "../component/P2",
         metaFileLocation: "../component/P2.meta.json",
-        acutalComponent :P2,
-        acutalComponentMeta :P2Meta,
+        acutalComponent: P2,
+        acutalComponentMeta: P2Meta,
     },
     {
         pageUrl: "/p3",
-        componentName: "P3",
-        componentLocation:"../component/P3",
+        name: "p3",
+        componentLocation: "../component/P3",
         metaFileLocation: "../component/P3.meta.json",
-        acutalComponent :P3,
-        acutalComponentMeta :P3Meta,
+        acutalComponent: P3,
+        acutalComponentMeta: P3Meta,
     },
     {
         pageUrl: "/p4",
-        componentName: "P4",
-        componentLocation:"../component/P4",
+        name: "p4",
+        componentLocation: "../component/P4",
         metaFileLocation: "../component/P4.meta.json",
-        acutalComponent :P4,
-        acutalComponentMeta :P4Meta,
+        acutalComponent: P4,
+        acutalComponentMeta: P4Meta,
     },
     {
         pageUrl: "/",
-        componentName: "Home",
-        componentLocation:"../component/Home",
+        name: "home",
+        componentLocation: "../component/Home",
         metaFileLocation: "../component/Home.meta.json",
-        acutalComponent :Home,
-        acutalComponentMeta :HomeMeta,
+        acutalComponent: Home,
+        acutalComponentMeta: HomeMeta,
     }
 ]
 
 
 class PageImports {
-    loadAllPagesAndGetRoutes =  (routeList = []) => {
+    loadAllPagesAndGetRoutes = (appConfig, routeList = []) => {
         let allCoveredPages = 0;
-        while(allCoveredPages < appPageConfiguration.length) {
-            routeList.push(this.loadComponentAndMeta(appPageConfiguration[allCoveredPages]));
-           // this.loadComponentAndMeta(appPageConfiguration[allCoveredPages]);
+        while (allCoveredPages < appPageConfiguration.length) {
+            routeList.push(this.loadComponentAndMeta(appPageConfiguration[allCoveredPages], appConfig));
             allCoveredPages++;
         }
+
+        // update Rule Defs
+        navigatorHelperInstance.setRuleDefinitions({
+            ...RuleMetaJSON.ruleDefinition,
+            ...appConfig.ruleDef
+        });
         return routeList;
     }
-    loadComponentAndMeta = (singlePage)=> {
-        //const acutalConnectedComponent = await import(singlePage.componentLocation);
-        //const acutalComponentMeta = await import(singlePage.metaFileLocation);
+    loadComponentAndMeta = (singlePage, appConfig) => {
         let acutalConnectedComponent = singlePage.acutalComponent;
         let acutalComponentMeta = singlePage.acutalComponentMeta;
-        // utilsInstance.pushToGlobal(acutalConnectedComponent,acutalComponentMeta);
-        NavigatorHelper.addOutcomes(acutalComponentMeta.navigation);
+        if (appConfig && appConfig.uiPages && appConfig.uiPages[singlePage.name] && appConfig.uiPages[singlePage.name].navigation) {
+            // if exist in server response override the default configuration
+            acutalComponentMeta = {
+                navigation: {
+                    ...acutalComponentMeta.navigation,
+                    ...appConfig.uiPages[singlePage.name].navigation,
+                }
+            };
+        }
+        navigatorHelperInstance.addOutcomes(acutalComponentMeta.navigation, acutalComponentMeta.name);
         return (<Route key={acutalComponentMeta.name} exact path={singlePage.pageUrl} component={acutalConnectedComponent} />);
     }
 }

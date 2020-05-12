@@ -1,4 +1,52 @@
 {
     "uiFragments": [],
-    "uiPages":[]
+    "ruleDef": {
+
+    },
+    "uiPages":[
+        {
+            "name": "home",
+            "navigation": {
+                "HOME_NEXT_CLICKED":{
+                        "action":"HOME_NEXT_CLICKED",
+                        "routeTo":"/p2",
+                        "ruleId":"some_random_rule2"
+                        
+                }
+            }
+        },
+        {
+            "name": "p2",
+            "navigation": {
+                "P2_NEXT_CLICKED": {
+                   "action": "P2_NEXT_CLICKED",
+                   "routeTo": "/p3"
+                 },
+               "P2_ALSO_NEXT_CLICKED":  {
+                   "action": "P2_ALSO_NEXT_CLICKED",
+                   "routeTo": "/"
+                 }
+             }
+        },
+        {
+            "name": "p3",
+            "navigation": {
+                "P3_ALSO_NEXT_CLICKED": {
+                   "action":"P3_ALSO_NEXT_CLICKED",
+                   "routeTo":"/p4"
+                   }
+               }
+        },
+        {
+            "name": "p4",
+            "navigation": {
+                "P4_ALSO_NEXT_CLICKED":
+                    {
+                    "action":"P4_ALSO_NEXT_CLICKED",
+                    "routeTo":"/"
+                    }
+                }
+        }
+
+    ]
 }
