@@ -7,7 +7,7 @@ import Routes from './Routes'
 
 // this server is configurator-server http-server . --cors=Authorization
 const configuration = {
-    serverURL: "http://192.168.1.100:8080/app.json"
+    serverURL: "http://192.168.1.100:8081/app.json"
 }
 const App = () => {
     const [appConfiguration, setAppConfiguration] = useState({});

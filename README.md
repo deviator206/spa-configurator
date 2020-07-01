@@ -11,3 +11,22 @@ This represents basic react-webpack application which is configured from scratch
 Restriction of sending pageIdentifier when disptaching the event
  OR 
 check if dynamically we will be able to fetch the page information
+
+
+
+,
+                "ruleId":"some_random_rule2"
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
