@@ -1,21 +1,19 @@
 {
   "name": "spa-configurator",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "repository": "https://github.com/deviator206/spa-configurator.git",
-  "license": "MIT",
-  "private": true,
-  "workspaces1": [
-    "configurator-server",
-    "simple-app",
-    "react-redux-app",
-    "app-react-webpack"
-  ],
-  "workspaces": [
-    "react-redux-app"
-  ],
   "scripts": {
-    "build": "echo here",
-    "travis": "yarn workspace configurator-server test"
-  }
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deviator206/spa-configurator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/deviator206/spa-configurator/issues"
+  },
+  "homepage": "https://github.com/deviator206/spa-configurator#readme"
 }
